@@ -1,0 +1,350 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a demo application for checking options of AWS lambda development.",
+    "version": "0.0.1",
+    "title": "Failure Mode App",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "zoran.vukoszavlyev@ge.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "PoC",
+      "description": "Proof of Concept"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/failures/_search": {
+      "get": {
+        "tags": [
+          "failure mode"
+        ],
+        "summary": "Search for registered failure mode by tags",
+        "description": "",
+        "operationId": "getFailuresByTag",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "selected tags",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FailureMode"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/failures": {
+      "get": {
+        "tags": [
+          "failure mode"
+        ],
+        "summary": "List registered failure modes",
+        "description": "",
+        "operationId": "getFailures",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FailureMode"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "failure mode"
+        ],
+        "summary": "Creates new failure mode",
+        "description": "",
+        "operationId": "postFailureMode",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Details of the new failure mode",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FailureMode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FailureMode"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/failures/{failure_id}": {
+      "get": {
+        "tags": [
+          "failure mode"
+        ],
+        "summary": "Find failure mode by ID",
+        "description": "",
+        "operationId": "getFailureById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "failure_id",
+            "in": "path",
+            "description": "ID of a given failure mode",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/FailureMode"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/failures/{failure_id}/tags/": {
+      "post": {
+        "tags": [
+          "failure mode"
+        ],
+        "summary": "Creates new failure mode",
+        "description": "",
+        "operationId": "postFailureMode",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "failure_id",
+            "in": "path",
+            "description": "ID of a given failure mode",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Details of the new failure mode",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Tag"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FailureMode"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/failures/{failure_id}/tags/{tag_id}": {
+      "delete": {
+        "tags": [
+          "tag"
+        ],
+        "summary": "Remove a tag from a failure mode",
+        "description": "",
+        "operationId": "deleteTagFromFailureMode",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "failure_id",
+            "in": "path",
+            "description": "ID of a given failure mode",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "tag_id",
+            "in": "path",
+            "description": "ID of a given failure mode",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "FailureMode": {
+      "type": "object",
+      "required": [
+        "id",
+        "probability",
+        "detectability",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "functional_state": {
+          "type": "string"
+        },
+        "service_effect": {
+          "type": "string"
+        },
+        "platform_effect": {
+          "type": "string"
+        },
+        "potential_cause": {
+          "type": "string"
+        },
+        "probability": {
+          "type": "integer",
+          "format": "int8",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "detect_failures": {
+          "type": "string"
+        },
+        "response_action": {
+          "type": "string"
+        },
+        "mitigation": {
+          "type": "string"
+        },
+        "detectability": {
+          "type": "integer",
+          "format": "int8",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "safety_concern": {
+          "type": "boolean",
+          "default": false
+        },
+        "creator": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdated": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "required": [
+        "id",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "text": {
+          "type": "string"
+        },
+        "color_code": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
