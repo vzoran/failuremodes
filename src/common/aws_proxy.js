@@ -4,11 +4,9 @@ module.exports = {
       "resource": resource,
       "path": req.url,
       "httpMethod": req.method,
-      "headers": null,
-      "queryStringParameters": {
-        "param1": "test"
-      },
-      "pathParameters": null,
+      "headers": req.headers,
+      "queryStringParameters": req.query,
+      "pathParameters": req.params,
       "stageVariables": null,
       "requestContext": {
         "path": req.url,

@@ -12,7 +12,7 @@ module.exports = {
    */
   getContextAlias: function (functionName, invokedFunctionArn, defaultAlias) {
     // input validation
-    if(invokedFunctionArn === null) {
+    if(invokedFunctionArn == undefined) {
       return defaultAlias;
     }
     
@@ -26,5 +26,19 @@ module.exports = {
     } else {
       return lastItem;
     }
+  },
+
+  getDefaultResponse: function() {
+    return {
+      "isBase64Encoded": false,
+      "statusCode": 404,
+      "headers": { "content-type": "application/json"},
+      "body": ""
+    };
+  },
+
+  extractFunctionCode: function(eventDef) {
+    var funcCode = eventDef.httpMethod + eventDef.resource.replace(/\//g, '_').replace(/\{.+?\}/g, 'ID');
+    return funcCode.toUpperCase();
   }
 }
