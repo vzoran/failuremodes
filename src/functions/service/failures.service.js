@@ -1,6 +1,6 @@
 'use strict';
 
-var failureRepository = require('../repository/failures.repository');
+var failureRepository = require('../repository/failures.repository.mongo');
 
 module.exports = {
   getFailures: function (callback) {

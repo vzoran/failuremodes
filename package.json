@@ -17,6 +17,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.0.0",
     "lambda-local": "^1.4.4",
+    "mongodb": "^3.0.0-rc0",
     "swaggerize-express": "^4.0.0",
     "swagmock": "~0.0.2"
   },
