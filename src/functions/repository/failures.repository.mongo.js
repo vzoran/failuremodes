@@ -44,11 +44,10 @@ module.exports = {
 
       // Insert a single document
       db.collection(collectionName)
-        .find({_id: o_id})
-        .toArray(function(err, docs){
+        .findOne({_id: o_id}, function(err, doc){
           assert.equal(null, err);
-          callback(err, docs);
-        });
+          callback(err, doc);
+        })
     });
   },
 

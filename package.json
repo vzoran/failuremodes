@@ -15,9 +15,11 @@
   "dependencies": {
     "aws-sdk": "^2.158.0",
     "body-parser": "^1.15.0",
+    "coffee-script": "^1.12.7",
     "express": "^4.0.0",
     "lambda-local": "^1.4.4",
     "mongodb": "^3.0.0-rc0",
+    "nodejs-model": "^0.1.6",
     "swaggerize-express": "^4.0.0",
     "swagmock": "~0.0.2"
   },
