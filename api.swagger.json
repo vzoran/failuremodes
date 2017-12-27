@@ -13,7 +13,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "localhost",
+  "host": "localhost:8000",
   "basePath": "/",
   "tags": [
     {
@@ -115,7 +115,6 @@
             "description": "Details of the new failure mode",
             "required": true,
             "schema": {
-              "type": "object",
               "$ref": "#/definitions/FailureMode"
             }
           }
@@ -124,7 +123,6 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
               "$ref": "#/definitions/FailureMode"
             }
           },
@@ -181,7 +179,7 @@
         ],
         "summary": "Creates new failure mode",
         "description": "",
-        "operationId": "postFailureMode",
+        "operationId": "postFailureModeTag",
         "produces": [
           "application/json"
         ],
@@ -200,7 +198,6 @@
             "description": "Details of the new failure mode",
             "required": true,
             "schema": {
-              "type": "object",
               "$ref": "#/definitions/Tag"
             }
           }
@@ -209,7 +206,6 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
               "$ref": "#/definitions/FailureMode"
             }
           },
@@ -266,10 +262,8 @@
     "FailureMode": {
       "type": "object",
       "required": [
-        "id",
         "probability",
-        "detectability",
-        "version"
+        "detectability"
       ],
       "properties": {
         "id": {
