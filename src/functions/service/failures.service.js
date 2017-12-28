@@ -1,5 +1,6 @@
 'use strict';
 const failureRepository = require('../repository/failures.repository.mongo');
+const awstools = require('../common/awsTools');
 var FailureModeModel = require('../model/failures.model');
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
       Promise.all(validators).then(function(){
         const failedItems = fmodeItems.filter(fItem => !fItem.isValid);
         if(failedItems.length > 0) {
-          callback('Wrong items in database');
+          callback(awstools.createErrorResponse(500, '', 'Wrong items in database'));
         } else {
           callback(null, data);
         }
@@ -33,9 +34,9 @@ module.exports = {
   getFailureById: function (id, callback) {
     failureRepository.getFailureById(id, function(err, data) {
       if(err) {
-        callback(err);
+        callback(awstools.createErrorResponse(500, '', err));
       } else if(data == null || data == undefined) {
-        callback("No item found");
+        callback(awstools.createErrorResponse(404, '', 'Missing failuremode ID'));
       } else {
         // create and fill for output validation
         var foundFailureMode = FailureModeModel.create();
@@ -46,7 +47,7 @@ module.exports = {
           if(foundFailureMode.isValid) {
             callback(null, data);
           } else {
-            callback(newFailureMode.errors, null);
+            callback(awstools.createErrorResponse(500, '', newFailureMode.errors));
           }
         });
       }
@@ -62,7 +63,7 @@ module.exports = {
       if(newFailureMode.isValid) {
         failureRepository.addFailure(newFailureMode.toJSON(), callback);
       } else {
-        callback(newFailureMode.errors, null);
+        callback(awstools.createErrorResponse(400, 'Invalid ID', newFailureMode.errors));
       }
     });
   }

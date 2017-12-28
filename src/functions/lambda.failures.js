@@ -12,8 +12,14 @@ exports.handler = (event, context, callback) => {
         var response = awsTools.getDefaultResponse();
             
         if(err) {
-            response.statusCode = 500;
-            console.error(err);
+            if(typeof err === 'string') {
+                response.statusCode = 500;
+                console.error(err);
+            } else {
+                response.statusCode = err.httpCode;
+                response.body = err.responseMessage;
+                console.error(description);
+            }
         } else {
             response.statusCode = 200;
             response.body = data;

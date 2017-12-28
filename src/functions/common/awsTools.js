@@ -37,6 +37,18 @@ module.exports = {
     };
   },
 
+  createErrorResponse: function(httpReturnCode, returnMessage, description) {
+    if(!httpReturnCode) {
+      httpReturnCode = 500;
+    }
+
+    return {
+      "httpCode": httpReturnCode,
+      "responseMessage": returnMessage,
+      "description": description
+    };
+  },
+
   extractFunctionCode: function(eventDef) {
     var funcCode = eventDef.httpMethod + eventDef.resource.replace(/\//g, '_').replace(/\{.+?\}/g, 'ID');
     return funcCode.toUpperCase();
