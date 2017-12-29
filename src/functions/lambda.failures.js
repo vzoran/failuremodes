@@ -38,5 +38,9 @@ exports.handler = (event, context, callback) => {
         case "GET_FAILURES_ID":
             failureService.getFailureById(event.pathParameters.failure_id, callbackFunc);
             break;
+        default:
+            console.error('Invalid function code:', funcCode); 
+            callbackFunc('Invalid function code', null);
+            break;
     }
 };
