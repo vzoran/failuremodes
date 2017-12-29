@@ -1,4 +1,17 @@
+'use strict';
+
+/**
+ * This is a helper class to stub messages AWS Api Gateway (in proxy mode)
+ */
 module.exports = {
+  /**
+   * Creates a event definition as similar as API GW does.
+   * 
+   * @param resource API Definition
+   * @param req NodeJS Express request object
+   * 
+   * @returns JSON object of event definition
+   */
   createProxyEvent: function (resource, req) {
     var proxyEvent = {
       "resource": resource,
@@ -38,18 +51,4 @@ module.exports = {
 
     return proxyEvent;
   },
-
-  createProxyContext: function (functionName, labelName) {
-    var proxyContext = {
-      "callbackWaitsForEmptyEventLoop": true,
-      "logGroupName": "/aws/lambda/" + functionName,
-      "logStreamName": "2017/11/29/[$LATEST]62915c2533c14036adf71dedc661fd0f",
-      "functionName": functionName,
-      "memoryLimitInMB": "128",
-      "functionVersion": "$LATEST",
-      "invokeid": "802780f6-d503-11e7-9c9a-3fed14a4d263",
-      "awsRequestId": "802780f6-d503-11e7-9c9a-3fed14a4d263",
-      "invokedFunctionArn": "arn:aws:lambda:eu-central-1:247152150683:function:" + functionName + (labelName != null ? ":" + labelName : "")
-    };
-  }
 };

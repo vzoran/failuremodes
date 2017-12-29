@@ -9,8 +9,8 @@ var path = require('path');
 module.exports = {
   /**
    * summary: List registered failure modes
-   * description: 
-   * parameters: 
+   * description:
+   * parameters:
    * produces: application/json
    * responses: 200, 400, 500
    */
@@ -20,17 +20,17 @@ module.exports = {
 
     // Pass it to lambda
     lambdaLocal.execute({
-        event: event,
-        lambdaPath: path.join(__dirname, '../../functions/lambda.failures'),
-        timeoutMs: 3000,
-        callback: function (err, data) {
-            if (err) {
-                console.error(err);
-                res.status(500).send("");
-            } else {
-                res.status(data.statusCode).send(data.body);
-            }
+      event: event,
+      lambdaPath: path.join(__dirname, '../../functions/failures.lambda'),
+      timeoutMs: 3000,
+      callback: function (err, data) {
+        if (err) {
+          console.error(err);
+          res.status(500).send("");
+        } else {
+          res.status(data.statusCode).send(data.body);
         }
+      }
     });
   }
 };
