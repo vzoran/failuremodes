@@ -21,7 +21,7 @@ module.exports = {
     // Pass it to lambda
     lambdaLocal.execute({
         event: event,
-        lambdaPath: path.join(__dirname, '../../functions/lambda.failures'),
+        lambdaPath: path.join(__dirname, '../../functions/failures.lambda'),
         timeoutMs: 3000,
         callback: function (err, data) {
             if (err) {

@@ -1,3 +1,5 @@
+'use strict';
+
 var awsTools = require('./common/awsTools');
 var failureService = require('./service/failures.service');
 

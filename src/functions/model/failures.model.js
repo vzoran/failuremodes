@@ -1,4 +1,8 @@
 'use strict';
+
+/**
+ * This is a model definition of a failure mode.
+ */
 var model = require('nodejs-model');
 
 var FailureMode = model('FailureMode')
@@ -34,7 +38,7 @@ var FailureMode = model('FailureMode')
   .attr('probability', {
     presence: true,
     format: {
-      with: /^(1|2|3|4|5)$/i
+      with: /^(1|2|3|4|5)$/
     }
   })
   .attr('detect_failures', {
@@ -58,13 +62,13 @@ var FailureMode = model('FailureMode')
   .attr('detectability', {
     presence: true,
     format: {
-      with: /^(1|2|3|4|5)$/i
+      with: /^(1|2|3|4|5)$/
     }
   })
   .attr('safety_concern', {
     presence: true,
     format: {
-      with: /^(true|false)$/i
+      with: /^(true|false)$/
     }
   })
   .attr('creator', {
@@ -89,7 +93,7 @@ var FailureMode = model('FailureMode')
       maximum: 16
     },
     format: {
-      with: /^\d*$/
+      with: /^\d+$/
     },
   });
 
