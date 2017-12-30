@@ -8,7 +8,18 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}\\server"
+      "program": "${workspaceFolder}\\server",
+      "env": {
+        "DB_LOCATION_LOCAL":"mongodb://localhost:27017",
+        "DB_LOCATION_TEST":"",
+        "DB_LOCATION_PROD":"mongodb://localhost:27017",
+        "DB_LOCATION_DEFAULT":"mongodb://localhost:27017",
+
+        "DB_ENGINE_LOCAL": "mongo",
+        "DB_ENGINE_TEST": "memory",
+        "DB_ENGINE_PROD": "mongo",
+        "DB_ENGINE_DEFAULT": "mongo"
+      }
     }
   ]
 }
