@@ -6,7 +6,7 @@
 var model = require('nodejs-model');
 
 var FailureMode = model('FailureMode')
-  .attr('id', {
+  .attr('_id', {
     presence: false
   })
   .attr('functional_state', {
