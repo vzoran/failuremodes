@@ -20,9 +20,10 @@
     "lambda-local": "^1.4.4",
     "mongodb": "^3.0.0-rc0",
     "nodejs-model": "^0.1.6",
-    "pg": "^7.4.0",
+    "pg": "^7.4.1",
     "swaggerize-express": "^4.0.0",
-    "swagmock": "~0.0.2"
+    "swagmock": "~0.0.2",
+    "uuid4": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",

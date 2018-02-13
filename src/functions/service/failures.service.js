@@ -3,16 +3,16 @@
  * Business layer of failure mode handling.
  */
 
-const failureRepository = require('../repository/failures.repository.mongo');
+const failureRepository = require('../repository/failures.repository.postgres');
 const awstools = require('../common/awsTools');
 var FailureModeModel = require('../model/failures.model');
 
 module.exports = {
    /**
    * Returns with all recorded failure modes.
-   * 
+   *
    * @param callback Function(err, data) will be called after query.
-   * 
+   *
    * @returns Array of validated failure mode objects or empty list.
    */
   getFailures: function (callback) {
@@ -44,10 +44,10 @@ module.exports = {
   },
    /**
    * Returns with a given failure mode by its ID.
-   * 
+   *
    * @param id ID of the selected failure mode
    * @param callback Function(err, data) will be called after query.
-   * 
+   *
    * @returns Array of failure mode or null.
    */
   getFailureById: function (id, callback) {
@@ -74,10 +74,10 @@ module.exports = {
   },
   /**
    * Adds a new failure mode to repository.
-   * 
+   *
    * @param data Validated failure mode object
    * @param callback Function(err, data) will be called after insertion.
-   * 
+   *
    * @returns Insterted failure mode object.
    */
   addNewFailure: function(data, callback) {

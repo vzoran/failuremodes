@@ -20,8 +20,7 @@ var FailureMode = model('FailureMode')
     length: {
       minimum: 0,
       maximum: 1000
-    },
-    tags: ['dao', 'dto']
+    }
   })
   .attr('platform_effect', {
     length: {
