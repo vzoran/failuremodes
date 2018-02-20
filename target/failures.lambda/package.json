@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "coffee-script": "^1.12.7",
-    "mongodb": "^3.0.1",
-    "nodejs-model": "^0.1.6"
-  }
-}

@@ -1,33 +1,36 @@
 {
-  "name": "fmode-lambda",
+  "name": "local-lambda",
   "description": "",
   "version": "1.0.0",
-  "author": "z <z@z.com>",
+  "author": "Zoran Vukoszavlyev <vzoran76@gmail.com>",
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "git://github.com/z/fmode-lambda.git"
+    "url": "https://github.com/vzoran/failuremodes.git"
   },
-  "bugs": "http://github.com/z/fmode-lambda/issues",
+  "bugs": "https://github.com/vzoran/failuremodes/issues",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
   "dependencies": {
-    "aws-sdk": "^2.158.0",
-    "body-parser": "^1.15.0",
     "coffee-script": "^1.12.7",
-    "express": "^4.0.0",
-    "lambda-local": "^1.4.4",
-    "mongodb": "^3.0.0-rc0",
+    "lambda-local": "^1.4.5",
+    "mongodb": "^3.0.2",
     "nodejs-model": "^0.1.6",
     "pg": "^7.4.1",
-    "swaggerize-express": "^4.0.0",
-    "swagmock": "~0.0.2",
+    "swagmock": "0.0.5",
     "uuid4": "^1.0.0"
   },
   "devDependencies": {
+    "aws-sdk": "^2.158.0",
+    "body-parser": "^1.15.0",
     "chai": "^4.1.2",
     "eslint": "^2",
+    "express": "^4.0.0",
+    "grunt": "~0.4.0",
+    "grunt-contrib-compress": "^1.4.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-npm-command": "^0.1.2",
     "is-my-json-valid": "^2.13.1",
     "istanbul": "~0.4.3",
     "js-yaml": "^3.2.6",
@@ -35,7 +38,8 @@
     "sinon": "^4.1.3",
     "sinon-chai": "^2.14.0",
     "supertest": "^1.2.0",
-    "swagger-parser": "^3.4.1"
+    "swagger-parser": "^3.4.1",
+    "swaggerize-express": "^4.0.0"
   },
   "scripts": {
     "test": "mocha test/**/*spec.js --reporter spec",
