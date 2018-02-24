@@ -22,7 +22,7 @@ exports.handler = (event, context, callback) => {
       } else {
         response.statusCode = err.httpCode;
         response.body = err.responseMessage;
-        console.error(description);
+        console.error(err.description);
       }
     } else {
       response.statusCode = 200;

@@ -3,97 +3,87 @@
 /**
  * This is a model definition of a failure mode.
  */
-var model = require('nodejs-model');
-
-var FailureMode = model('FailureMode')
-  .attr('id', {
+var failureModeConstraint = {
+  id: {
     presence: false
-  })
-  .attr('functional_state', {
-    validations: {
-      format: {
-        with: /^(startup|running|finish)$/i
-      }
-    }
-  })
-  .attr('service_effect', {
-    length: {
-      minimum: 0,
-      maximum: 1000
-    }
-  })
-  .attr('platform_effect', {
-    length: {
-      minimum: 0,
-      maximum: 1000
-    }
-  })
-  .attr('potential_cause', {
-    length: {
-      minimum: 0,
-      maximum: 1000
-    }
-  })
-  .attr('probability', {
+  },
+  functional_state: {
     presence: true,
-    format: {
-      with: /^(1|2|3|4|5)$/
-    }
-  })
-  .attr('detect_failures', {
-    length: {
-      minimum: 0,
-      maximum: 1000
-    }
-  })
-  .attr('response_action', {
-    length: {
-      minimum: 0,
-      maximum: 1000
-    }
-  })
-  .attr('mitigation', {
-    length: {
-      minimum: 0,
-      maximum: 1000
-    }
-  })
-  .attr('detectability', {
-    presence: true,
-    format: {
-      with: /^(1|2|3|4|5)$/
-    }
-  })
-  .attr('safety_concern', {
-    presence: true,
-    format: {
-      with: /^(true|false)$/
-    }
-  })
-  .attr('creator', {
+    inclusion: ['startup', 'running', 'finish']
+  },
+  service_effect:{
     presence: true,
     length: {
-      minimum: 1,
+      minimum: 0,
       maximum: 1000
     }
-  })
-  .attr('version', {
+  },
+  platform_effect: {
+    presence: true,
     length: {
-      minimum: 1,
-      maximum: 16
-    },
-    format: {
-      with: /^\d*$/
-    },
-  })
-  .attr('lastupdated', {
+      minimum: 0,
+      maximum: 1000
+    }
+  },
+  potential_cause: {
+    presence: true,
     length: {
-      minimum: 1,
-      maximum: 16
-    },
-    format: {
-      with: /^\d+$/
-    },
-  });
+      minimum: 0,
+      maximum: 1000
+    }
+  },
+  probability: {
+    presence: true,
+    inclusion: [1, 2, 3, 4, 5]
+  },
+  detect_failures: {
+    presence: true,
+    length: {
+      minimum: 0,
+      maximum: 1000
+    }
+  },
+  response_action: {
+    presence: true,
+    length: {
+      minimum: 0,
+      maximum: 1000
+    }
+  },
+  mitigation: {
+    presence: true,
+    length: {
+      minimum: 0,
+      maximum: 1000
+    }
+  },
+  detectability: {
+    presence: true,
+    inclusion: [1, 2, 3, 4, 5]
+  },
+  safety_concern: {
+    presence: true,
+    inclusion: ['true', 'false']
+  },
+  creator: {
+    presence: true,
+    length: {
+      minimum: 0,
+      maximum: 1000
+    }
+  },
+  version: {
+    numericality: {
+      strict: true,
+      onlyInteger: true
+    }
+  },
+  lastupdated: {
+    numericality: {
+      strict: true,
+      onlyInteger: true
+    }
+  }
+}
 
-  module.exports = FailureMode;
+module.exports = failureModeConstraint;

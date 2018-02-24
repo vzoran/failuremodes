@@ -5,7 +5,9 @@
 
 const failureRepository = require('../repository/failures.repository.postgres');
 const awstools = require('../common/awsTools');
-var FailureModeModel = require('../model/failures.model');
+var failureModeModel = require('../model/failures.model');
+var validate = require("validate.js");
+validate.async.options = { format: "detailed", cleanAttributes: true };
 
 module.exports = {
    /**
@@ -20,25 +22,19 @@ module.exports = {
       var validators = [];
       var fmodeItems = [];
 
-      // execute all validators
+      // prepare for async validations
       for(var i = 0; i < data.length; ++i) {
         // create and fill for output validation
-        var nextFailureMode = FailureModeModel.create();
-        nextFailureMode.update(data[i]);
-
-        // store for further use
-        fmodeItems.push(nextFailureMode);
-        validators.push(nextFailureMode.validate());
+        validators.push(validate.async(data[i], failureModeModel));
       }
 
       // return only if all items are valid
-      Promise.all(validators).then(function(){
-        const failedItems = fmodeItems.filter(fItem => !fItem.isValid);
-        if(failedItems.length > 0) {
-          callback(awstools.createErrorResponse(500, '', 'Wrong items in database'));
-        } else {
-          callback(null, data);
-        }
+      Promise.all(validators)
+      .then(function(items){
+        callback(null, items);
+      })
+      .catch(function(err) {
+        callback(awstools.createErrorResponse(500, 'validation error', validate.prettify(err)));
       });
     });
   },
