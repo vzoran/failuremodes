@@ -7,7 +7,9 @@ const failureRepository = require('../repository/failures.repository.postgres');
 const awstools = require('../common/awsTools');
 var failureModeModel = require('../model/failures.model');
 var validate = require("validate.js");
-validate.async.options = { format: "detailed", cleanAttributes: true };
+
+// configure default behavior of validator
+validate.async.options = { format: "flat", cleanAttributes: true };
 
 module.exports = {
    /**
@@ -34,7 +36,7 @@ module.exports = {
         callback(null, items);
       })
       .catch(function(err) {
-        callback(awstools.createErrorResponse(500, 'validation error', validate.prettify(err)));
+        callback(awstools.createErrorResponse(500, 'validation error', err));
       });
     });
   },
@@ -68,6 +70,7 @@ module.exports = {
       }
     });
   },
+
   /**
    * Adds a new failure mode to repository.
    *
@@ -78,16 +81,13 @@ module.exports = {
    */
   addNewFailure: function(data, callback) {
     // create and fill input data
-    var newFailureMode = FailureModeModel.create();
-    newFailureMode.update(data);
-
-    // validate and save
-    newFailureMode.validate().then(function() {
-      if(newFailureMode.isValid) {
-        failureRepository.addFailure(newFailureMode.toJSON(), callback);
-      } else {
-        callback(awstools.createErrorResponse(400, 'Invalid ID', newFailureMode.errors));
-      }
+   validate.async(data, failureModeModel)
+    .then(function(data) {
+      console.debug(JSON.stringify(data));
+      failureRepository.addFailure(data, callback);
+    })
+    .catch(function(err) {
+      callback(awstools.createErrorResponse(500, 'validation error', err));
     });
   }
 };

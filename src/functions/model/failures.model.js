@@ -63,7 +63,7 @@ var failureModeConstraint = {
   },
   safety_concern: {
     presence: true,
-    inclusion: ['true', 'false']
+    inclusion: [true, false]
   },
   creator: {
     presence: true,
