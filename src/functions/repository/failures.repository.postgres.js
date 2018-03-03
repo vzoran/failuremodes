@@ -2,12 +2,9 @@
 
 var uuid = require('uuid4');
 
-const connectionString = 'postgresql://fmode_user:fmode01@localhost:5432/postgres';
-//const connectionString = 'postgresql://fmode_user_read:fmode01@fmodedb.cynev1bdlktc.eu-central-1.rds.amazonaws.com:5432/fmode';
-
 const { Client } = require('pg');
 const client = new Client({
-  connectionString: connectionString,
+  connectionString: process.env.DB_LOCATION,
 })
 client.connect();
 
