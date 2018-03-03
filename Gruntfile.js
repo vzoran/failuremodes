@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    clean: ['./target/**', './deploy/**'],
     copy: {
       main: {
         files: [
@@ -17,7 +18,7 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
-            src: ['package.json'],
+            src: ['package.json', 'package-lock.json'],
             dest: './target/failure.lambda/',
             timestamp: true,
             nonull: true
@@ -36,22 +37,27 @@ module.exports = function(grunt) {
     compress: {
       main: {
         options: {
-          mode: 'gzip',
-          archive: 'failure.lambda.zip'
+          archive: './deploy/<%= pkg.version %>/failure.lambda.zip'
         },
-        expand: true,
-        cwd: './target/failure.lambda/',
-        src: ['**'],
-        dest: './target/'
+        files: [
+          {
+            expand: true,
+            cwd: './target/failure.lambda/',
+            src: ['**/*'],
+            dest: '/'
+          }
+        ]
       }
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-npm-command');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
-  grunt.registerTask('default', ['copy', 'npm-command']);
+  grunt.registerTask('default', ['clean', 'copy', 'npm-command', 'compress']);
+  grunt.registerTask('package', ['compress']);
 
 };

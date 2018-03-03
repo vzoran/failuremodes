@@ -87,6 +87,7 @@ module.exports = {
     for(var i = 0; i < vars.length; ++i) {
       if(process.env[vars[i] + newAlias]) {
         process.env[vars[i]] = process.env[vars[i] + newAlias];
+        console.info("vars[i] copied from " + vars[i] + newAlias);
       } else {
         console.error("Missing env variable: ", vars[i] + newAlias)
       }

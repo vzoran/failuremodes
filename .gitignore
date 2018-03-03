@@ -59,3 +59,4 @@ typings/
 
 .deleteme.text
 target/
+deploy/
