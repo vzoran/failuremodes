@@ -60,3 +60,4 @@ typings/
 .deleteme.text
 target/
 deploy/
+.vscode/launch.json
