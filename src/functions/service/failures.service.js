@@ -9,7 +9,7 @@ var failureModeModel = require('../model/failures.model');
 var validate = require("validate.js");
 
 // configure default behavior of validator
-validate.async.options = { format: "flat", cleanAttributes: true };
+validate.async.options = { format: "flat", cleanAttributes: false };
 
 module.exports = {
    /**
@@ -55,17 +55,13 @@ module.exports = {
       } else if(data == null || data == undefined) {
         callback(awstools.createErrorResponse(404, '', 'Missing failuremode ID'));
       } else {
-        // create and fill for output validation
-        var foundFailureMode = FailureModeModel.create();
-        foundFailureMode.update(data);
-
-        // validate returned objects
-        foundFailureMode.validate().then(function() {
-          if(foundFailureMode.isValid) {
-            callback(null, data);
-          } else {
-            callback(awstools.createErrorResponse(500, '', newFailureMode.errors));
-          }
+        // validate returned object
+        validate.async(data, failureModeModel)
+        .then(function(item) {
+          callback(null, data);
+        })
+        .catch(function(err) {
+          callback(awstools.createErrorResponse(500, 'validation error', err));
         });
       }
     });

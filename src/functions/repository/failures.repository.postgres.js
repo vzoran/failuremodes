@@ -3,10 +3,6 @@
 var uuid = require('uuid4');
 
 const { Client } = require('pg');
-const client = new Client({
-  connectionString: process.env.DB_LOCATION,
-})
-client.connect();
 
 /**
  * This is a postgres version of failure modes DB Repository.
@@ -21,11 +17,16 @@ module.exports = {
    * @returns Array of failure mode objects or empty list.
    */
   getAllFailures: function (callback) {
+    const client = new Client({
+      connectionString: process.env.DB_LOCATION
+    });
+
     const selectQuery = {
       text: 'SELECT * FROM fmode.failure_modes ORDER BY lastupdated',
       values: []
     };
 
+    client.connect();
     client.query(selectQuery, (err, res) => {
       if (err) {
         callback(err, null);
@@ -43,11 +44,15 @@ module.exports = {
    * @returns Object of failure mode or null.
    */
   getFailureById: function(id, callback) {
+    const client = new Client({
+      connectionString: process.env.DB_LOCATION
+    });
     const selectQuery = {
       text: 'SELECT * FROM fmode.failure_modes WHERE id=$1',
       values: [id]
     };
 
+    client.connect();
     client.query(selectQuery, (err, res) => {
       if (err) {
         console.log(err.stack);
@@ -67,6 +72,9 @@ module.exports = {
    * @returns Insterted failure mode object.
    */
   addFailure: function(data, callback) {
+    const client = new Client({
+      connectionString: process.env.DB_LOCATION
+    });
     const insertQuery = {
       text: 'INSERT INTO fmode.failure_modes(id, functional_state, service_effect, platform_effect, potential_cause, probability, detect_failures, response_action, mitigation, detectability, safety_concern, creator, version, lastupdated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *',
       values: [
@@ -87,6 +95,7 @@ module.exports = {
       ]
     };
 
+    client.connect();
     client.query(insertQuery, (err, res) => {
       if (err) {
         console.log(err.stack);
