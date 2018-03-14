@@ -18,14 +18,11 @@
     "validate.js": "^0.12.0"
   },
   "devDependencies": {
-    "swagmock": "0.0.5",
-    "mongodb": "^3.0.2",
-    "lambda-local": "^1.4.5",
-    "aws-sdk": "^2.158.0",
+    "aws-sdk": "^2.209.0",
     "body-parser": "^1.15.0",
     "chai": "^4.1.2",
     "eslint": "^2",
-    "express": "^4.0.0",
+    "express": "^4.16.3",
     "grunt": "~0.4.0",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-compress": "^1.4.3",
@@ -33,13 +30,16 @@
     "grunt-npm-command": "^0.1.2",
     "is-my-json-valid": "^2.13.1",
     "istanbul": "~0.4.3",
-    "js-yaml": "^3.2.6",
+    "js-yaml": "^3.11.0",
+    "lambda-local": "^1.4.6",
     "mocha": "^4.0.1",
-    "sinon": "^4.1.3",
+    "mongodb": "^3.0.4",
+    "sinon": "^4.4.5",
     "sinon-chai": "^2.14.0",
     "supertest": "^1.2.0",
     "swagger-parser": "^3.4.1",
-    "swaggerize-express": "^4.0.0"
+    "swaggerize-express": "^4.0.0",
+    "swagmock": "0.0.5"
   },
   "scripts": {
     "test": "mocha test/**/*spec.js --reporter spec",
