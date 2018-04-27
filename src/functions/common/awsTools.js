@@ -33,13 +33,31 @@ module.exports = {
    *
    * @returns Created repsonse object filled with default values.
    */
-  getDefaultResponse: function() {
-    return {
+  createResponse: function(err, data) {
+    // create default object structure
+    var responseObject = {
       "isBase64Encoded": false,
       "statusCode": 404,
       "headers": { "content-type": "application/json"},
       "body": ""
     };
+
+    // fill object with response code and body
+    if (err) {
+      if (typeof err === 'string') {
+        responseObject.statusCode = 500;
+        console.error(err);
+      } else {
+        responseObject.statusCode = err.httpCode;
+        responseObject.body = err.responseMessage;
+        console.error(JSON.stringify(err.description));
+      }
+    } else {
+      responseObject.statusCode = 200;
+      responseObject.body = data;
+    }
+
+    return responseObject;
   },
 
   /**

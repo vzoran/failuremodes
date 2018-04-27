@@ -12,24 +12,7 @@ exports.handler = (event, context, callback) => {
 
   // Define callback
   var callbackFunc = function (err, data) {
-    // init reponse data structure
-    var response = awsTools.getDefaultResponse();
-
-    if (err) {
-      if (typeof err === 'string') {
-        response.statusCode = 500;
-        console.error(err);
-      } else {
-        response.statusCode = err.httpCode;
-        response.body = err.responseMessage;
-        console.error(JSON.stringify(err.description));
-      }
-    } else {
-      response.statusCode = 200;
-      response.body = data;
-    }
-
-    callback(null, response);
+    callback(null, awsTools.createResponse(err, data));
   };
 
   switch (funcCode) {
